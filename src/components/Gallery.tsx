@@ -12,7 +12,7 @@ export default function Gallery() {
       title: 'Electrical Panel Installation',
       category: 'Commercial',
       description: 'Modern electrical panel configuration for hotel infrastructure',
-      image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80',
+      image: '/assets/equipment.png',
     },
     {
       title: 'Conduit System Design',
@@ -54,7 +54,7 @@ export default function Gallery() {
       title: 'Equipment Testing',
       category: 'Maintenance',
       description: 'Professional equipment testing and diagnostics',
-      image: '/assets/equipment.png',
+      image: '/assets/about-image.jpg',
     },
     {
       title: 'Blueprint Analysis',
