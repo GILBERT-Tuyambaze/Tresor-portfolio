@@ -22,14 +22,12 @@ export default function Skills() {
     { name: 'Fire Alarm Programming', level: 75 },
     { name: 'Microsoft Office Suite', level: 85 },
     { name: 'Photo & Video Editing', level: 80 },
-    { name: 'Website Design', level: 65 },
   ];
 
   const languages = [
     { name: 'Kinyarwanda', speaking: 'Excellent', writing: 'Excellent', listening: 'Excellent' },
     { name: 'English', speaking: 'Very Good', writing: 'Very Good', listening: 'Very Good' },
     { name: 'French', speaking: 'Good', writing: 'Good', listening: 'Good' },
-    { name: 'Chinese', speaking: 'Good', writing: 'Basic', listening: 'Good' },
   ];
 
   const hobbies = [
