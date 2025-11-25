@@ -49,7 +49,7 @@ export default function About() {
             </div>
             <div className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-6 rounded-xl shadow-xl">
               <div className="text-center">
-                <div className="text-3xl font-bold">2024</div>
+                <div className="text-3xl font-bold">2025</div>
                 <div className="text-sm">Current Role</div>
               </div>
             </div>
