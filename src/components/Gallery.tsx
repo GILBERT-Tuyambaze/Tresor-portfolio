@@ -54,7 +54,7 @@ export default function Gallery() {
       title: 'Equipment Testing',
       category: 'Maintenance',
       description: 'Professional equipment testing and diagnostics',
-      image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=80',
+      image: '/assets/equipment.jpg',
     },
     {
       title: 'Blueprint Analysis',
