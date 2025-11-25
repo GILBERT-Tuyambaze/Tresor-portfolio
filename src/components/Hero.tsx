@@ -93,10 +93,6 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" onClick={() => scrollToSection('#projects')} className="group">
-                View Portfolio
-                <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
-              </Button>
               <Button size="lg" variant="outline" onClick={() => scrollToSection('#contact')}>
                 <Mail className="mr-2 w-4 h-4" />
                 Hire Me
