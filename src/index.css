@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+     :root {
+        --background: 0 0% 100%;
+        --foreground: 0 0% 18%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 18%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 18%;
+        --primary: 210 79% 31%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 205 82% 54%;
+        --secondary-foreground: 0 0% 100%;
+        --muted: 210 40% 96%;
+        --muted-foreground: 0 0% 45%;
+        --accent: 48 100% 62%;
+        --accent-foreground: 0 0% 18%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 214 32% 91%;
+        --input: 214 32% 91%;
+        --ring: 210 79% 31%;
+        --radius: 0.5rem;
+    }
+    .dark {
+        --background: 215 28% 7%;
+        --foreground: 213 31% 91%;
+        --card: 216 28% 9%;
+        --card-foreground: 213 31% 91%;
+        --popover: 216 28% 9%;
+        --popover-foreground: 213 31% 91%;
+        --primary: 206 100% 62%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 205 82% 54%;
+        --secondary-foreground: 0 0% 100%;
+        --muted: 215 28% 17%;
+        --muted-foreground: 213 19% 65%;
+        --accent: 48 100% 62%;
+        --accent-foreground: 0 0% 7%;
+        --destructive: 0 62% 30%;
+        --destructive-foreground: 213 31% 91%;
+        --border: 215 28% 17%;
+        --input: 215 28% 17%;
+        --ring: 206 100% 62%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+@layer utilities {
+    .bg-grid-pattern {
+        background-image: linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+    .animate-in {
+        animation: slideIn 0.5s ease-out forwards;
+        opacity: 0;
+    }
+    .fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+    .slide-in-from-left {
+        animation: slideInFromLeft 0.7s ease-out forwards;
+    }
+    .slide-in-from-right {
+        animation: slideInFromRight 0.7s ease-out forwards;
+    }
+    .slide-in-from-bottom {
+        animation: slideInFromBottom 0.7s ease-out forwards;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes slideInFromLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes slideInFromRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes slideInFromBottom {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@supports (scrollbar-width: thin) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: hsl(var(--primary)) hsl(var(--background));
+    }
+}
+
+@supports selector(::-webkit-scrollbar) {
+     ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+     ::-webkit-scrollbar-track {
+        background: hsl(var(--background));
+    }
+     ::-webkit-scrollbar-thumb {
+        background: hsl(var(--primary));
+        border-radius: 5px;
+    }
+     ::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--primary) / 0.8);
+    }
+}
