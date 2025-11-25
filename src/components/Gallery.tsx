@@ -48,7 +48,7 @@ export default function Gallery() {
       title: 'Lighting Installation',
       category: 'Commercial',
       description: 'Modern lighting system installation and setup',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+      image: '/assets/light.jpg',
     },
     {
       title: 'Equipment Testing',
