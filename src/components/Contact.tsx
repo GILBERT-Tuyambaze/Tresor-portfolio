@@ -86,7 +86,7 @@ export default function Contact() {
                       <div>
                         <h4 className="font-semibold mb-1">Location</h4>
                         <p className="text-muted-foreground">
-                          Nyagatare, Eastern Province
+                          Nyarugenge, Kigali City
                           <br />
                           Rwanda
                         </p>
