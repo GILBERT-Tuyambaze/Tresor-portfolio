@@ -75,7 +75,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3 text-muted-foreground">
                 <MapPin className="w-5 h-5 text-primary" />
-                <span>Nyagatare, Rwanda</span>
+                <span>Kigali, Rwanda</span>
               </li>
             </ul>
           </div>
@@ -87,7 +87,7 @@ export default function Footer() {
               "Committed to engineering solutions that ensure reliability and safety."
             </p>
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Tuyizere Tresor. All rights reserved.
+              © {new Date().getFullYear()} Tuyizere Tresor. All rights reserved. || <a href="https://tuyambaze-gilbert.vercel.app" className="text-gray-300 hover:text-orange-500" target="_blank" rel="noopener noreferrer">developed by Gilbert TUYAMBAZE, click here to visit me too </a>
             </p>
           </div>
         </div>
