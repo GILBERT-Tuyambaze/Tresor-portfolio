@@ -54,7 +54,7 @@ export default function Gallery() {
       title: 'Equipment Testing',
       category: 'Maintenance',
       description: 'Professional equipment testing and diagnostics',
-      image: '/assets/equipment.jpg',
+      image: '/assets/equipment.png',
     },
     {
       title: 'Blueprint Analysis',
