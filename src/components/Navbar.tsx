@@ -2,17 +2,20 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon, Monitor, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from './ThemeProvider';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, actualTheme } = useTheme(); 
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -36,6 +39,50 @@ export default function Navbar() {
     }
   };
 
+const ThemeToggle = ({ isMobile = false }) => (
+    <div className={`flex ${isMobile ? 'flex-col space-y-2' : 'items-center space-x-1'} bg-gray-100 dark:bg-gray-800 rounded-full ${isMobile ? 'p-3' : 'p-1'}`}>
+      <Button
+        variant={theme === 'light' ? 'default' : 'ghost'}
+        size={isMobile ? 'default' : 'sm'}
+        onClick={() => setTheme('light')}
+        className={`rounded-full ${isMobile ? 'w-full justify-start' : 'h-8 w-8 p-0'} ${
+          theme === 'light' 
+            ? 'bg-white text-gray-900 shadow-sm' 
+            : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+        }`}
+      >
+        <Sun className={`${isMobile ? 'mr-2' : ''} h-4 w-4`} />
+        {isMobile && 'Light'}
+      </Button>
+      <Button
+        variant={theme === 'dark' ? 'default' : 'ghost'}
+        size={isMobile ? 'default' : 'sm'}
+        onClick={() => setTheme('dark')}
+        className={`rounded-full ${isMobile ? 'w-full justify-start' : 'h-8 w-8 p-0'} ${
+          theme === 'dark' 
+            ? 'bg-gray-900 text-white shadow-sm' 
+            : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+        }`}
+      >
+        <Moon className={`${isMobile ? 'mr-2' : ''} h-4 w-4`} />
+        {isMobile && 'Dark'}
+      </Button>
+      <Button
+        variant={theme === 'system' ? 'default' : 'ghost'}
+        size={isMobile ? 'default' : 'sm'}
+        onClick={() => setTheme('system')}
+        className={`rounded-full ${isMobile ? 'w-full justify-start' : 'h-8 w-8 p-0'} ${
+          theme === 'system' 
+            ? 'bg-blue-600 text-white shadow-sm' 
+            : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+        }`}
+      >
+        <Monitor className={`${isMobile ? 'mr-2' : ''} h-4 w-4`} />
+        {isMobile && 'System'}
+      </Button>
+    </div>
+  )
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -44,120 +91,63 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <a href="#home" className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Tresor
-            </a>
-          </div>
 
+          {/* Logo */}
+          <a
+            href="#home"
+            className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+          >
+            Tresor
+          </a>
+
+          {/* Desktop nav links */}
           <div className="hidden md:flex items-center space-x-1">
-            {navLinks.map((link) => (
+            {navLinks.map(link => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className="px-3 py-2 rounded-md text-sm font-medium text-foreground/80 hover:text-primary hover:bg-accent/10 transition-all duration-200"
+                className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-200"
               >
                 {link.name}
               </button>
             ))}
           </div>
 
+          {/* Desktop right controls */}
           <div className="hidden md:flex items-center space-x-2">
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="w-9 h-9">
-                  {theme === 'light' && <Sun className="h-5 w-5" />}
-                  {theme === 'dark' && <Moon className="h-5 w-5" />}
-                  {theme === 'system' && <Monitor className="h-5 w-5" />}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40 z-[9999] bg-card border-2 shadow-xl">
-                <DropdownMenuItem 
-                  onClick={() => setTheme('light')} 
-                  className="cursor-pointer hover:bg-primary/10 focus:bg-primary/10"
-                >
-                  <Sun className="mr-2 h-4 w-4" />
-                  <span>Light</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={() => setTheme('dark')} 
-                  className="cursor-pointer hover:bg-primary/10 focus:bg-primary/10"
-                >
-                  <Moon className="mr-2 h-4 w-4" />
-                  <span>Dark</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={() => setTheme('system')} 
-                  className="cursor-pointer hover:bg-primary/10 focus:bg-primary/10"
-                >
-                  <Monitor className="mr-2 h-4 w-4" />
-                  <span>System</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
+           <ThemeToggle />
             <Button variant="default" size="sm" className="ml-2">
-              <Download className="mr-2 h-4 w-4" />
-              Download CV
+              <Download className="mr-2 h-4 w-4" /> Download CV
             </Button>
           </div>
 
+          {/* Mobile controls */}
           <div className="md:hidden flex items-center space-x-2">
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="w-9 h-9">
-                  {theme === 'light' && <Sun className="h-5 w-5" />}
-                  {theme === 'dark' && <Moon className="h-5 w-5" />}
-                  {theme === 'system' && <Monitor className="h-5 w-5" />}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40 bg-card border-2 shadow-xl">
-                <DropdownMenuItem 
-                  onClick={() => setTheme('light')} 
-                  className="cursor-pointer hover:bg-primary/10 focus:bg-primary/10"
-                >
-                  <Sun className="mr-2 h-4 w-4" />
-                  <span>Light</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={() => setTheme('dark')} 
-                  className="cursor-pointer hover:bg-primary/10 focus:bg-primary/10"
-                >
-                  <Moon className="mr-2 h-4 w-4" />
-                  <span>Dark</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={() => setTheme('system')} 
-                  className="cursor-pointer hover:bg-primary/10 focus:bg-primary/10"
-                >
-                  <Monitor className="mr-2 h-4 w-4" />
-                  <span>System</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <ThemeToggle />
 
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
+
         </div>
       </div>
 
+      {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden bg-background/98 backdrop-blur-md border-t">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navLinks.map((link) => (
+            {navLinks.map(link => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-foreground/80 hover:text-primary hover:bg-accent/10 transition-all duration-200"
+                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-primary hover:bg-accent/10 transition-all duration-200"
               >
                 {link.name}
               </button>
             ))}
             <Button variant="default" size="sm" className="w-full mt-2">
-              <Download className="mr-2 h-4 w-4" />
-              Download CV
+              <Download className="mr-2 h-4 w-4" /> Download CV
             </Button>
           </div>
         </div>

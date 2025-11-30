@@ -5,10 +5,35 @@ import { Briefcase, Award, Building2, Zap, Download, Mail, ArrowDown } from 'luc
 import { useTheme } from './ThemeProvider';
 
 export default function Hero() {
-  const { actualTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const [currentTitle, setCurrentTitle] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // 🟦 IMAGE ZOOM TRANSITION STATES
+  const [imageSrc, setImageSrc] = useState(
+    resolvedTheme === 'dark'
+      ? '/assets/hero-dark.jpg'
+      : '/assets/hero-light.jpg'
+  );
+
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // 🟦 ZOOM TRANSITION LOGIC
+  useEffect(() => {
+    setIsTransitioning(true); // zoom-out + fade-out
+
+    const timeout = setTimeout(() => {
+      setImageSrc(
+        resolvedTheme === 'dark'
+          ? '/assets/hero-dark.jpg'
+          : '/assets/hero-light.jpg'
+      );
+      setIsTransitioning(false); // zoom-in + fade-in
+    }, 300); // matches CSS animation
+
+    return () => clearTimeout(timeout);
+  }, [resolvedTheme]);
 
   const titles = [
     'Electrical & Maintenance Engineer',
@@ -28,7 +53,11 @@ export default function Hero() {
         setIsDeleting(false);
         setCurrentTitle((prev) => (prev + 1) % titles.length);
       } else {
-        setDisplayText(isDeleting ? currentFullText.substring(0, displayText.length - 1) : currentFullText.substring(0, displayText.length + 1));
+        setDisplayText(
+          isDeleting
+            ? currentFullText.substring(0, displayText.length - 1)
+            : currentFullText.substring(0, displayText.length + 1)
+        );
       }
     }, typingSpeed);
 
@@ -43,9 +72,12 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-accent/5">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-accent/5"
+    >
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      
+
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -53,6 +85,8 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
+          
+          {/* TEXT SIDE */}
           <div className="space-y-8 animate-in fade-in slide-in-from-left duration-700">
             <div className="space-y-4">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold">
@@ -60,7 +94,7 @@ export default function Hero() {
                   Tuyizere Tresor
                 </span>
               </h1>
-              
+
               <div className="h-16 flex items-center">
                 <h2 className="text-2xl sm:text-3xl font-semibold text-foreground/80">
                   {displayText}
@@ -70,49 +104,53 @@ export default function Hero() {
             </div>
 
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              A devoted electrical engineer focused on delivering safe, stable, and efficient electrical systems for commercial, residential, and hospitality environments. Blending precision, modern engineering practices, and a commitment to quality, I create solutions built to last.
+              A devoted electrical engineer focused on delivering safe,
+              stable, and efficient electrical systems for commercial,
+              residential, and hospitality environments. Blending precision,
+              modern engineering practices, and a commitment to quality,
+              I create solutions built to last.
             </p>
 
             <div className="flex flex-wrap gap-3">
               <Badge variant="secondary" className="px-4 py-2 text-sm">
-                <Briefcase className="w-4 h-4 mr-2" />
-                5+ Years Experience
+                <Briefcase className="w-4 h-4 mr-2" /> 5+ Years Experience
               </Badge>
               <Badge variant="secondary" className="px-4 py-2 text-sm">
-                <Building2 className="w-4 h-4 mr-2" />
-                Hotel des Mille Collines
+                <Building2 className="w-4 h-4 mr-2" /> Hotel des Mille Collines
               </Badge>
               <Badge variant="secondary" className="px-4 py-2 text-sm">
-                <Award className="w-4 h-4 mr-2" />
-                Kigali Houses
+                <Award className="w-4 h-4 mr-2" /> Kigali Houses
               </Badge>
               <Badge variant="secondary" className="px-4 py-2 text-sm">
-                <Zap className="w-4 h-4 mr-2" />
-                Safety-Driven Engineering
+                <Zap className="w-4 h-4 mr-2" /> Safety-Driven Engineering
               </Badge>
             </div>
 
             <div className="flex flex-wrap gap-4 pt-4">
               <Button size="lg" variant="outline" onClick={() => scrollToSection('#contact')}>
-                <Mail className="mr-2 w-4 h-4" />
-                Hire Me
+                <Mail className="mr-2 w-4 h-4" /> Hire Me
               </Button>
               <Button size="lg" variant="secondary">
-                <Download className="mr-2 w-4 h-4" />
-                Download CV
+                <Download className="mr-2 w-4 h-4" /> Download CV
               </Button>
             </div>
           </div>
 
+          {/* IMAGE SIDE */}
           <div className="relative animate-in fade-in slide-in-from-right duration-700 delay-300">
             <div className="relative w-full aspect-square max-w-lg mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-2xl animate-pulse"></div>
-              
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-background transform hover:scale-105 transition-transform duration-500">
+
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-background transform transition-all duration-500">
+
+                {/* 🟦 ZOOM TRANSITION IMAGE */}
                 <img
-                  src={actualTheme === 'dark' ? '/assets/hero-dark.jpg' : '/assets/hero-light.jpg'}
+                  src={imageSrc}
                   alt="Tuyizere Tresor - Electrical Engineer"
-                  className="w-full h-full object-cover transition-opacity duration-500"
+                  className={`
+                    w-full h-full object-cover transition-all duration-500
+                    ${isTransitioning ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}
+                  `}
                 />
               </div>
 
@@ -124,6 +162,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
