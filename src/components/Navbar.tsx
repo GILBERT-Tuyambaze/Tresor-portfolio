@@ -32,7 +32,7 @@ export default function Navbar() {
   ];
 
   const heroImageSrc =
-    theme === 'dark' ? '/assets/logo-dark.png' : '/assets/logo-light.jpg';
+    theme === 'dark' ? '/assets/logo-light.jpg' : '/assets/logo-dark.png';
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
