@@ -12,7 +12,7 @@ import {
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { theme, setTheme, actualTheme } = useTheme(); 
+  const { theme, setTheme, resolvedTheme } = useTheme(); 
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -30,6 +30,9 @@ export default function Navbar() {
     { name: 'Testimonials', href: '#testimonials' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  const heroImageSrc =
+    theme === 'dark' ? '/assets/logo-dark.png' : '/assets/logo-light.jpg';
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -97,7 +100,14 @@ const ThemeToggle = ({ isMobile = false }) => (
             href="#home"
             className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
           >
-            Tresor
+            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-border shadow-lg transition-transform duration-300 hover:scale-105">
+                <img
+                    src={heroImageSrc}
+                    alt="Gilbert Tuyambaze"
+                    className="w-full h-full object-cover object-center"
+                    loading="lazy"
+                  />
+              </div>
           </a>
 
           {/* Desktop nav links */}

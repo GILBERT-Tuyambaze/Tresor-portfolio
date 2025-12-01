@@ -10,7 +10,7 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // 🟦 IMAGE ZOOM TRANSITION STATES
+  
   const [imageSrc, setImageSrc] = useState(
     resolvedTheme === 'dark'
       ? '/assets/hero-dark.jpg'
@@ -19,9 +19,9 @@ export default function Hero() {
 
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // 🟦 ZOOM TRANSITION LOGIC
+  
   useEffect(() => {
-    setIsTransitioning(true); // zoom-out + fade-out
+    setIsTransitioning(true); 
 
     const timeout = setTimeout(() => {
       setImageSrc(
@@ -29,8 +29,8 @@ export default function Hero() {
           ? '/assets/hero-dark.jpg'
           : '/assets/hero-light.jpg'
       );
-      setIsTransitioning(false); // zoom-in + fade-in
-    }, 300); // matches CSS animation
+      setIsTransitioning(false); 
+    }, 1000); 
 
     return () => clearTimeout(timeout);
   }, [resolvedTheme]);
@@ -141,14 +141,14 @@ export default function Hero() {
             <div className="relative w-full aspect-square max-w-lg mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-2xl animate-pulse"></div>
 
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-background transform transition-all duration-500">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-background transform transition-all duration-[1500ms]">
 
-                {/* 🟦 ZOOM TRANSITION IMAGE */}
+            
                 <img
                   src={imageSrc}
                   alt="Tuyizere Tresor - Electrical Engineer"
                   className={`
-                    w-full h-full object-cover transition-all duration-500
+                    w-full h-full object-cover transition-all duration-[1000ms]
                     ${isTransitioning ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}
                   `}
                 />
